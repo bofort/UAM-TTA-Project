@@ -1,2 +1,2 @@
 # UAM-TTA-Project
-Project on te subject TTA
+Project on the subject TTA
