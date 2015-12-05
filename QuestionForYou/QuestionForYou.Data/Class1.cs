@@ -8,5 +8,10 @@ namespace QuestionForYou.Data
 {
     public class Class1
     {
+
+        public bool GetBool()
+        {
+            return true;
+        }
     }
 }
