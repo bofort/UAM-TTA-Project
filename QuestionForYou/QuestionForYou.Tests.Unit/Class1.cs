@@ -11,6 +11,7 @@ namespace QuestionForYou.Tests.Unit
     public class Class1
     {
 
+
         [Test]
         public void GetBool_Return_True()
         {
