@@ -4,14 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuestionForYou.Data
+namespace QuestionForYou.Data.Model
 {
-    public class Class1
+    public class Category : ModelBase
     {
-
-        public bool GetBool()
-        {
-            return true;
-        }
+        public string Name { get; set; }
     }
 }
