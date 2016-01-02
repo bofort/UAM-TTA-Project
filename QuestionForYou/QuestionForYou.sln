@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionForYou.UI.WPF", "QuestionForYou.UI.WPF\QuestionForYou.UI.WPF.csproj", "{080F1F73-317B-4EB6-AF53-E06379D227E6}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionForYou.API", "QuestionForYou.API\QuestionForYou.API.csproj", "{D52F0484-A3FA-4856-B961-6C0956993FCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionForYou.UI.WP", "QuestionForYou.UI.WP\QuestionForYou.UI.WP.csproj", "{B17AB8FB-CECD-457E-9F77-E838FE5E3418}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionForYou.UI.WPF.Tests", "QuestionForYou.UI.WPF.Tests\QuestionForYou.UI.WPF.Tests.csproj", "{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +133,22 @@ Global
 		{B17AB8FB-CECD-457E-9F77-E838FE5E3418}.Release|x86.ActiveCfg = Release|x86
 		{B17AB8FB-CECD-457E-9F77-E838FE5E3418}.Release|x86.Build.0 = Release|x86
 		{B17AB8FB-CECD-457E-9F77-E838FE5E3418}.Release|x86.Deploy.0 = Release|x86
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Debug|ARM.Build.0 = Debug|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Debug|x64.Build.0 = Debug|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Debug|x86.Build.0 = Debug|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Release|ARM.ActiveCfg = Release|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Release|ARM.Build.0 = Release|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Release|x64.ActiveCfg = Release|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Release|x64.Build.0 = Release|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Release|x86.ActiveCfg = Release|Any CPU
+		{EB9DADE7-2EDF-4192-8640-EDA45EF6753E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
