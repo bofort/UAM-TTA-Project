@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using NUnit.Framework;
+using QuestionForYou.Data.Model;
 using QuestionForYou.Data.Storage;
 
 namespace QuestionForYou.Tests.Integration.Storage
@@ -15,13 +16,13 @@ namespace QuestionForYou.Tests.Integration.Storage
     {
 
         private static Func<QuestionForYouContext> _dbContextFactory;
-        private Repository<Account> _sut;
+        private Repository<Question> _sut;
         private TransactionScope _scope;
 
         [SetUp]
         public void SetUp()
         {
-            _sut = new Repository<Account>(_dbContextFactory);
+            _sut = new Repository<Question>(_dbContextFactory);
         }
 
         [TestFixtureSetUp]
