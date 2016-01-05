@@ -21,6 +21,15 @@ namespace QuestionForYou.Data.Storage
         {
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Question>()
+                .HasMany(b => b.Answers);
+        }
+
+
         public DbSet<Question> Questions { get; set; }
 
         public DbSet<Answer> Answers { get; set; }
