@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using QuestionForYou.Data.Model;
@@ -16,19 +19,32 @@ namespace QuestionForYou.Data.Storage
             _contextFactory = contextFactory;
         }
 
-        public T FindById(int id)
+        public T FindById(int id, params Expression<Func<T, object>>[] includes)
         {
+            List<string> includelist = GetIncludesList(includes);
+
             using (var context = _contextFactory())
             {
-                return context.Set<T>().FirstOrDefault(x => x.Id == id);
+                DbQuery<T> entity = context.Set<T>();
+
+                includelist.ForEach(x => entity = entity.Include(x));
+
+                return entity.FirstOrDefault(x => x.Id == id);
             }
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
+            List<string> includelist = GetIncludesList(includes);
+
             using (var context = _contextFactory())
             {
-                return context.Set<T>().AsEnumerable().ToList();
+                DbQuery<T> entity = context.Set<T>();
+
+                includelist.ForEach(x => entity = entity.Include(x));
+
+                return entity.AsEnumerable().ToList();
+
             }
         }
 
@@ -58,5 +74,19 @@ namespace QuestionForYou.Data.Storage
                 context.SaveChanges();
             }
         }
+
+        private List<string> GetIncludesList(params Expression<Func<T, object>>[] includes)
+        {
+            var includelist = new List<string>();
+            foreach (var body in includes.Select(item => item.Body as MemberExpression))
+            {
+                if (body == null)
+                    throw new ArgumentException("The body must be a member expression");
+
+                includelist.Add(body.Member.Name);
+            }
+            return includelist;
+        } 
+
     }
 }

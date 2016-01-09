@@ -32,23 +32,19 @@ namespace QuestionForYou.Tests.Unit.Service
             {
                  new Answer
                 {
-                    Id = 1,
                     IsCorrect = true,
                     Text = "test"
                 },
                 new Answer
                 {
-                    Id = 2,
                     IsCorrect = false,
                     Text = "test"
                 },
                 new Answer{
-                    Id = 3,
                     IsCorrect = false,
                     Text = "test"
                 },
                 new Answer{
-                    Id = 4,
                     IsCorrect = false,
                     Text = "test"
                 },
@@ -71,13 +67,11 @@ namespace QuestionForYou.Tests.Unit.Service
             {
                 new Answer
                 {
-                    Id = 1,
                     IsCorrect = true,
                     Text = "test"
                 },
                 new Answer
                 {
-                    Id = 2,
                     IsCorrect = true,
                     Text = "test"
                 },

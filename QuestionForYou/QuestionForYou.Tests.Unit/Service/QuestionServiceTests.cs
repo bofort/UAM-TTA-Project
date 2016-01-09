@@ -17,11 +17,13 @@ namespace QuestionForYou.Tests.Unit.Service
 
         private QuestionService _sut;
         private IRepository<Question> _repository;
+        private QuestionFactory _questionFactory;
 
         [SetUp]
         public void SetUp()
         {
             _repository = A.Fake<IRepository<Question>>();
+            _questionFactory = A.Fake<QuestionFactory>();
             _sut = new QuestionService(_repository);
         }
 
@@ -53,14 +55,14 @@ namespace QuestionForYou.Tests.Unit.Service
 
             _sut.GetQuestionById(id);
 
-            A.CallTo(() => _repository.FindById(id)).MustHaveHappened();
+            A.CallTo(() => _repository.FindById(id,"")).MustHaveHappened();
         }
 
         [Test]
         public void GetQuestionById_Should_Return_Question_From_Repository()
         {
             var expected = new Question();
-            A.CallTo(() => _repository.FindById(A<int>._))
+            A.CallTo(() => _repository.FindById(A<int>._,""))
                 .Returns(expected);
 
             var result = _sut.GetQuestionById(11);
@@ -78,6 +80,24 @@ namespace QuestionForYou.Tests.Unit.Service
             List<Question> questionsCategory = questions.FindAll(q => q.Category == category);
 
             Assert.That(questions.Count,Is.EqualTo(questionsCategory.Count));
+        }
+
+        [Test]
+        public void GetRandomQuestionForUser_Should_Get_Random_Question_For_Repository()
+        {
+            User user = new User();
+
+            Question newQuestion = new Question
+            {
+                Id = 1
+            };
+
+            _sut.CreateQuestion(newQuestion);
+
+            Question question = _sut.GetRandomQuestionForUser(user);
+
+            A.CallTo(() => _questionFactory.PrepareQuestionForUser(question)).MustHaveHappened();
+
         }
 
     }
