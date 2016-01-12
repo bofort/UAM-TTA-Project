@@ -88,6 +88,12 @@
     <Folder Include="Controller\" />
     <Folder Include="Model\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuestionForYou.Data\QuestionForYou.Data.csproj">
+      <Project>{7ce447ed-6a90-4993-a549-907964311706}</Project>
+      <Name>QuestionForYou.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

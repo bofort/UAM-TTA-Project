@@ -14,12 +14,25 @@ namespace QuestionForYou.Data.Storage
         public QuestionForYouContext()
             : this("QuestionForYouConnectionString")
         {
+            //Database.SetInitializer(new CreateDatabaseIfNotExists<QuestionForYouContext>());
+            //this.Database.Initialize(true);
         }
 
         public QuestionForYouContext(string connectionStringName)
             : base(ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString)
         {
+            //Database.SetInitializer(new CreateDatabaseIfNotExists<QuestionForYouContext>());
+            //this.Database.Initialize(true);
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Question>()
+                .HasMany(b => b.Answers);
+        }
+
 
         public DbSet<Question> Questions { get; set; }
 

@@ -58,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\AnswerServiceTests.cs" />
+    <Compile Include="Service\QuestionFactoryTests.cs" />
     <Compile Include="Service\QuestionServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
