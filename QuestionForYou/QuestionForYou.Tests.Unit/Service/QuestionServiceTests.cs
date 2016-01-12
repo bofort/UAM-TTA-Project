@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using FakeItEasy;
@@ -24,6 +25,7 @@ namespace QuestionForYou.Tests.Unit.Service
         {
             _repository = A.Fake<IRepository<Question>>();
             _questionFactory = A.Fake<QuestionFactory>();
+
             _sut = new QuestionService(_repository);
         }
 
@@ -34,7 +36,7 @@ namespace QuestionForYou.Tests.Unit.Service
 
             _sut.CreateQuestion(question);
 
-            A.CallTo(()=>_repository.Persist(question)).MustHaveHappened();
+            A.CallTo(()=>_repository.Persist(A<Question>._)).MustHaveHappened();
 
         }
 
@@ -53,16 +55,16 @@ namespace QuestionForYou.Tests.Unit.Service
         {
             int id = 11;
 
-            _sut.GetQuestionById(id);
+            var q = _sut.GetQuestionById(id);
 
-            A.CallTo(() => _repository.FindById(id,"")).MustHaveHappened();
+            A.CallTo(() => _repository.FindById(id, A<Expression<Func<Question, object>>>._)).MustHaveHappened();
         }
 
         [Test]
         public void GetQuestionById_Should_Return_Question_From_Repository()
         {
             var expected = new Question();
-            A.CallTo(() => _repository.FindById(A<int>._,""))
+            A.CallTo(() => _repository.FindById(A<int>._, A<Expression<Func<Question, object>>>._))
                 .Returns(expected);
 
             var result = _sut.GetQuestionById(11);
@@ -85,19 +87,9 @@ namespace QuestionForYou.Tests.Unit.Service
         [Test]
         public void GetRandomQuestionForUser_Should_Get_Random_Question_For_Repository()
         {
-            User user = new User();
+            _sut.GetRandomQuestionForUser();
 
-            Question newQuestion = new Question
-            {
-                Id = 1
-            };
-
-            _sut.CreateQuestion(newQuestion);
-
-            Question question = _sut.GetRandomQuestionForUser(user);
-
-            A.CallTo(() => _questionFactory.PrepareQuestionForUser(question)).MustHaveHappened();
-
+            A.CallTo(() => _questionFactory.PrepareQuestionForUser(A<Question>._)).MustHaveHappened();
         }
 
     }
