@@ -57,14 +57,14 @@ namespace QuestionForYou.Tests.Unit.Service
 
             var q = _sut.GetQuestionById(id);
 
-            A.CallTo(() => _repository.FindById(id, A<Expression<Func<Question, object>>>._)).MustHaveHappened();
+            A.CallTo(() => _repository.FindById(id, A<Expression<Func<Question, object>>[]>._)).MustHaveHappened();
         }
 
         [Test]
         public void GetQuestionById_Should_Return_Question_From_Repository()
         {
             var expected = new Question();
-            A.CallTo(() => _repository.FindById(A<int>._, A<Expression<Func<Question, object>>>._))
+            A.CallTo(() => _repository.FindById(A<int>._, A<Expression<Func<Question, object>>[]>._))
                 .Returns(expected);
 
             var result = _sut.GetQuestionById(11);
