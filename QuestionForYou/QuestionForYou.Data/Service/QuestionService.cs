@@ -46,10 +46,11 @@ namespace QuestionForYou.Data.Service
             List<Question> list = _questionRepository.GetAll(_expression.ToArray()).ToList();
             if (list.Count > 0)
             {
-                Question q = list.OrderBy(x => Guid.NewGuid()).First();
+                Question q = list.First();
                 return _questionFactory.PrepareQuestionForUser(q);
             }
             return null;
         }
+
     }
 }

@@ -18,13 +18,13 @@ namespace QuestionForYou.Tests.Unit.Service
 
         private QuestionService _sut;
         private IRepository<Question> _repository;
-        private QuestionFactory _questionFactory;
+        private IQuestionFactory _questionFactory;
 
         [SetUp]
         public void SetUp()
         {
             _repository = A.Fake<IRepository<Question>>();
-            _questionFactory = A.Fake<QuestionFactory>();
+            _questionFactory = A.Fake<IQuestionFactory>();
 
             _sut = new QuestionService(_repository);
         }
@@ -57,7 +57,7 @@ namespace QuestionForYou.Tests.Unit.Service
 
             var q = _sut.GetQuestionById(id);
 
-            A.CallTo(() => _repository.FindById(id, A<Expression<Func<Question, object>>[]>._)).MustHaveHappened();
+            A.CallTo(() => _repository.FindById(A<int>._, A<Expression<Func<Question, object>>[]>._)).MustHaveHappened();
         }
 
         [Test]
@@ -84,12 +84,53 @@ namespace QuestionForYou.Tests.Unit.Service
             Assert.That(questions.Count,Is.EqualTo(questionsCategory.Count));
         }
 
+        [Ignore]
         [Test]
         public void GetRandomQuestionForUser_Should_Get_Random_Question_For_Repository()
         {
+            var nonEmptyQuestionsList = new List<Question>();
+            var q1 = new Question
+            {
+                Id = 12,
+                Category = new Category(),
+                Text = "",
+                Answers = new List<Answer>
+                {
+                    new Answer(),
+                    new Answer(),
+                    new Answer(),
+                    new Answer()
+                }
+            };
+            var q2 = new Question
+            {
+                Answers = new List<Answer>
+                {
+                    new Answer(),
+                    new Answer(),
+                    new Answer(),
+                    new Answer()
+                }
+            };
+            nonEmptyQuestionsList.AddRange(new [] {q1,q2});
+
+            A.CallTo(() => _repository.GetAll(A<Expression<Func<Question, object>>[]>._)).Returns(nonEmptyQuestionsList);
+
             _sut.GetRandomQuestionForUser();
 
-            A.CallTo(() => _questionFactory.PrepareQuestionForUser(A<Question>._)).MustHaveHappened();
+            A.CallTo(() => _questionFactory.PrepareQuestionForUser(A<Question>.That.Matches(x => x == q1 || x == q2))).MustHaveHappened();
+        }
+
+        [Test]
+        public void GetRandomQuestionForUser_Should_Return_Null_If_QuestionList_Is_Empty()
+        {
+            var emptyQuestionsList = new List<Question>();
+
+            A.CallTo(() => _repository.GetAll(A<Expression<Func<Question, object>>[]>._)).Returns(emptyQuestionsList);
+
+            var question = _sut.GetRandomQuestionForUser();
+
+            Assert.That(question,Is.EqualTo(null));
         }
 
     }

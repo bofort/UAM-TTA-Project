@@ -7,7 +7,7 @@ using QuestionForYou.Data.Model;
 
 namespace QuestionForYou.Data.Service
 {
-    public class QuestionFactory
+    public class QuestionFactory : IQuestionFactory
     {
         public Question PrepareQuestionForUser(Question question)
         {
