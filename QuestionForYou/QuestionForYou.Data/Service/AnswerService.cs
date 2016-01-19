@@ -8,24 +8,25 @@ using QuestionForYou.Data.Storage;
 
 namespace QuestionForYou.Data.Service
 {
-    public class AnswerService
+    public class AnswerService : IAnswerService
     {
 
-        private readonly IRepository<Answer> _questionRepository;
+        private readonly IRepository<Answer> _answerRepository;
 
-        public AnswerService(IRepository<Answer> questionRepository)
+        public AnswerService(IRepository<Answer> answerRepository)
         {
-            _questionRepository = questionRepository;
+            _answerRepository = answerRepository;
         }
 
         public Answer CreateAnswer(Answer answer)
         {
-            return _questionRepository.Persist(answer);
+            return _answerRepository.Persist(answer);
         }
 
-        public List<Answer> GetAnswers()
+        public List<Answer> GetAnswersForQuestion(int questionId)
         {
-            return _questionRepository.GetAll().ToList();
+            List<Answer> answersList = _answerRepository.GetAll().ToList();
+            return answersList;
         }
 
     }

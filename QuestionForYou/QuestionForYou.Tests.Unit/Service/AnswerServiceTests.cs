@@ -17,11 +17,13 @@ namespace QuestionForYou.Tests.Unit.Service
 
         private AnswerService _sut;
         private IRepository<Answer> _repository;
+        private IRepository<Question> _questionRepository;
 
         [SetUp]
         public void SetUp()
         {
             _repository = A.Fake<IRepository<Answer>>();
+            _questionRepository = A.Fake<IRepository<Question>>();
             _sut = new AnswerService(_repository);
         }
 
@@ -44,6 +46,38 @@ namespace QuestionForYou.Tests.Unit.Service
             Answer newAnswer = _sut.CreateAnswer(answer);
 
             A.Equals(answer, newAnswer);
+        }
+
+        [Test]
+        public void GetAnswersForQuestion_Should_Return_Question_For_Repository()
+        {
+            _sut.GetAnswersForQuestion(1);
+
+            A.CallTo(() => _repository.GetAll()).MustHaveHappened();
+        }
+
+        [Ignore]
+        [Test]
+        public void GetAnswersForQuestion_Should_Return_Aswers_For_Question()
+        {
+            var q1 = new Question
+            {
+                Id = 12
+            };
+
+            List<Answer> answers = new List<Answer>
+            {
+                new Answer {Id = 1, Text = "a", },
+                new Answer {Id = 1, Text = "b", },
+                new Answer {Id = 1, Text = "c", },
+                new Answer {Id = 1, Text = "d", }
+            };
+
+            A.CallTo(() => _repository.GetAll()).Returns(answers);
+
+            List<Answer> answersList = _sut.GetAnswersForQuestion(12);
+
+            Assert.True(answersList.TrueForAll(x=>x.Id==1));
         }
 
     }

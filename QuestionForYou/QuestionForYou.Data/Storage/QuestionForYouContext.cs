@@ -30,6 +30,9 @@ namespace QuestionForYou.Data.Storage
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Question>()
+                .HasOptional(x => x.Category);
+
+            modelBuilder.Entity<Question>()
                 .HasMany(b => b.Answers);
         }
 

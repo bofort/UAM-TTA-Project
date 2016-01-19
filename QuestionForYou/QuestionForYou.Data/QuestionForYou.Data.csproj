@@ -57,6 +57,9 @@
     <Compile Include="Model\Question.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\CategoryService.cs" />
+    <Compile Include="Service\IAnswerService.cs" />
+    <Compile Include="Service\ICategoryService.cs" />
     <Compile Include="Service\IQuestionFactory.cs" />
     <Compile Include="Service\IQuestionService.cs" />
     <Compile Include="Service\AnswerService.cs" />
