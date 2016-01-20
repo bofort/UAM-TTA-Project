@@ -26,7 +26,7 @@ namespace QuestionForYou.Data.Service
         public List<Answer> GetAnswersForQuestion(int questionId)
         {
             List<Answer> answersList = _answerRepository.GetAll().ToList();
-            return answersList;
+            return answersList.Where(x=>x.QuestionId == questionId).ToList();
         }
 
     }

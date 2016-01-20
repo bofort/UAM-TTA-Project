@@ -34,6 +34,7 @@ namespace QuestionForYou.Data.Storage
 
             modelBuilder.Entity<Question>()
                 .HasMany(b => b.Answers);
+
         }
 
 
