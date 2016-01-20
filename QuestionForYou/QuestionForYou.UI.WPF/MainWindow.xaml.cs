@@ -24,7 +24,7 @@ namespace QuestionForYou.UI.WPF
     public partial class MainWindow : Window
     {
 
-        QuestionForYouContext db = new QuestionForYouContext("IntegrationTestsConnectionString");
+        //QuestionForYouContext db = new QuestionForYouContext("IntegrationTestsConnectionString");
 
         private int rightAnswer = -1; // it keep the number of answer which is right in current question
         public MainWindow()
@@ -38,24 +38,24 @@ namespace QuestionForYou.UI.WPF
         {
            
 
-            List<Answer> allAnswers = new List<Answer>();
-            if (firstAnswerTextBox.Text != "" && firstAnswerTextBox.Text != "Put here right answer..." &&
-                secondAnswerTextBox.Text != "" && secondAnswerTextBox.Text != "Put here wrong answer..." &&
-                thirdAnswerTextBox.Text != "" && thirdAnswerTextBox.Text != "Put here wrong answer..." &&
-                fourthAnswerTextBox.Text != "" && fourthAnswerTextBox.Text != "Put here wrong answer..." &&
-                questionTextTextBox.Text !="" && questionTextTextBox.Text != "Put here new text for question..."
-                )
-            {
-                var newQuestion = new Question { Text = questionTextTextBox.Text };
-                allAnswers.Add(new Answer { Text = firstAnswerTextBox.Text, IsCorrect = true });
-                allAnswers.Add(new Answer { Text = secondAnswerTextBox.Text, IsCorrect = false });
-                allAnswers.Add(new Answer { Text = thirdAnswerTextBox.Text, IsCorrect = false });
-                allAnswers.Add(new Answer { Text = fourthAnswerTextBox.Text, IsCorrect = false });
-                db.Questions.Add(new Question { Id = null, Text = questionTextTextBox.Text, Answers = allAnswers, Category = new Category { Name = "Sport" } });
-                db.SaveChanges();
-                MessageBox.Show("Inserted");
-            }
-            else MessageBox.Show("Put data to all boxes");
+            //List<Answer> allAnswers = new List<Answer>();
+            //if (firstAnswerTextBox.Text != "" && firstAnswerTextBox.Text != "Put here right answer..." &&
+            //    secondAnswerTextBox.Text != "" && secondAnswerTextBox.Text != "Put here wrong answer..." &&
+            //    thirdAnswerTextBox.Text != "" && thirdAnswerTextBox.Text != "Put here wrong answer..." &&
+            //    fourthAnswerTextBox.Text != "" && fourthAnswerTextBox.Text != "Put here wrong answer..." &&
+            //    questionTextTextBox.Text !="" && questionTextTextBox.Text != "Put here new text for question..."
+            //    )
+            //{
+            //    var newQuestion = new Question { Text = questionTextTextBox.Text };
+            //    allAnswers.Add(new Answer { Text = firstAnswerTextBox.Text, IsCorrect = true });
+            //    allAnswers.Add(new Answer { Text = secondAnswerTextBox.Text, IsCorrect = false });
+            //    allAnswers.Add(new Answer { Text = thirdAnswerTextBox.Text, IsCorrect = false });
+            //    allAnswers.Add(new Answer { Text = fourthAnswerTextBox.Text, IsCorrect = false });
+            //    db.Questions.Add(new Question { Id = null, Text = questionTextTextBox.Text, Answers = allAnswers, Category = new Category { Name = "Sport" } });
+            //    db.SaveChanges();
+            //    MessageBox.Show("Inserted");
+            //}
+            //else MessageBox.Show("Put data to all boxes");
 
         }
 
@@ -121,72 +121,72 @@ namespace QuestionForYou.UI.WPF
 
         }
 
-        private void firstAnswerTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (firstAnswerTextBox.Text == "Put here right answer...")
-                firstAnswerTextBox.Text = "";
-        }
+        //private void firstAnswerTextBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (firstAnswerTextBox.Text == "Put here right answer...")
+        //        firstAnswerTextBox.Text = "";
+        //}
 
-        private void secondAnswerTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (secondAnswerTextBox.Text == "Put here wrong answer...")
-                secondAnswerTextBox.Text = "";
+        //private void secondAnswerTextBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (secondAnswerTextBox.Text == "Put here wrong answer...")
+        //        secondAnswerTextBox.Text = "";
 
-        }
+        //}
 
-        private void thirdAnswerTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (thirdAnswerTextBox.Text == "Put here wrong answer...")
-                thirdAnswerTextBox.Text = "";
+        //private void thirdAnswerTextBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (thirdAnswerTextBox.Text == "Put here wrong answer...")
+        //        thirdAnswerTextBox.Text = "";
 
-        }
+        //}
 
-        private void fourthAnswerTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (fourthAnswerTextBox.Text == "Put here wrong answer...")
-                fourthAnswerTextBox.Text = "";
+        //private void fourthAnswerTextBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (fourthAnswerTextBox.Text == "Put here wrong answer...")
+        //        fourthAnswerTextBox.Text = "";
 
-        }
+        //}
 
-        private void fourthAnswerTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (fourthAnswerTextBox.Text == "")
-                fourthAnswerTextBox.Text = "Put here wrong answer...";
+        //private void fourthAnswerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (fourthAnswerTextBox.Text == "")
+        //        fourthAnswerTextBox.Text = "Put here wrong answer...";
 
-        }
+        //}
 
-        private void thirdAnswerTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (thirdAnswerTextBox.Text == "")
-                thirdAnswerTextBox.Text = "Put here wrong answer...";
-        }
+        //private void thirdAnswerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (thirdAnswerTextBox.Text == "")
+        //        thirdAnswerTextBox.Text = "Put here wrong answer...";
+        //}
 
-        private void secondAnswerTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (secondAnswerTextBox.Text == "")
-                secondAnswerTextBox.Text = "Put here wrong answer...";
+        //private void secondAnswerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (secondAnswerTextBox.Text == "")
+        //        secondAnswerTextBox.Text = "Put here wrong answer...";
 
-        }
+        //}
 
-        private void firstAnswerTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (firstAnswerTextBox.Text == "")
-                firstAnswerTextBox.Text = "Put here right answer...";
-        }
+        //private void firstAnswerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (firstAnswerTextBox.Text == "")
+        //        firstAnswerTextBox.Text = "Put here right answer...";
+        //}
 
-        private void questionTextTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (questionTextTextBox.Text == "")
-                questionTextTextBox.Text = "Put here new text for question...";
-        }
+        //private void questionTextTextBox_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (questionTextTextBox.Text == "")
+        //        questionTextTextBox.Text = "Put here new text for question...";
+        //}
 
-        private void questionTextTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (questionTextTextBox.Text == "Put here new text for question...")
-                questionTextTextBox.Text = "";
+        //private void questionTextTextBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (questionTextTextBox.Text == "Put here new text for question...")
+        //        questionTextTextBox.Text = "";
                    
 
-        }
+        //}
     }
 }
 

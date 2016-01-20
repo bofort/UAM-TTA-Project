@@ -72,7 +72,6 @@ namespace QuestionForYou.Tests.Integration.Storage
 
             Assert.That(result, Is.Not.SameAs(someTransientModel));
             Assert.That(result.Text, Is.EqualTo(someTransientModel.Text));
-            Assert.That(result.Category, Is.EqualTo(someTransientModel.Category));
             Assert.That(result.Id.HasValue);
         }
 
@@ -101,7 +100,6 @@ namespace QuestionForYou.Tests.Integration.Storage
 
             Assert.That(actual.Id, Is.EqualTo(persisted.Id));
             Assert.That(actual.Text, Is.EqualTo(anotherWithSameId.Text));
-            Assert.That(actual.Category, Is.EqualTo(anotherWithSameId.Category));
         }
 
         [Test]
