@@ -46,5 +46,32 @@ namespace QuestionForYou.Tests.Unit.Service
             A.Equals(answer, newAnswer);
         }
 
+        [Test]
+        public void GetAnswersForQuestion_Should_Return_Question_For_Repository()
+        {
+            _sut.GetAnswersForQuestion(1);
+
+            A.CallTo(() => _repository.GetAll()).MustHaveHappened();
+        }
+
+        [Test]
+        public void GetAnswersForQuestion_Should_Return_Aswers_For_Question()
+        {
+            List<Answer> answers = new List<Answer>
+            {
+                new Answer {Id = 1, Text = "a", QuestionId = 12},
+                new Answer {Id = 2, Text = "b", QuestionId = 12},
+                new Answer {Id = 13, Text = "c", QuestionId = 12},
+                new Answer {Id = 14, Text = "d", QuestionId = 12},
+                 new Answer {Id = 14, Text = "d", QuestionId = 13}
+            };
+
+            A.CallTo(() => _repository.GetAll()).Returns(answers);
+
+            List<Answer> answersList = _sut.GetAnswersForQuestion(12);
+
+            Assert.True(answersList.TrueForAll(x=>x.QuestionId == 12));
+        }
+
     }
 }
