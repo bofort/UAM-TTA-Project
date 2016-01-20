@@ -1,12 +1,51 @@
-﻿<Window x:Class="QuestionForYou.UI.WPF.MainWindow"
+﻿<Window x:Name="QuestionForuYou" x:Class="QuestionForYou.UI.WPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuestionForYou.UI.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="QuestionForYou" Height="556.405" Width="725.775" ResizeMode="NoResize">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TabControl x:Name="tabControl" Grid.ColumnSpan="2" VerticalAlignment="Top" >
+            <TabItem x:Name="_1" Header="Get question">
+                <Grid  Height="495">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="133*"/>
+                        <ColumnDefinition Width="577*"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Fill="#FF006F49" HorizontalAlignment="Left" Height="93" Margin="0,10,-8,0" Stroke="Black" VerticalAlignment="Top" Width="718" Grid.ColumnSpan="2"/>
+                    <Label x:Name="headerLabel" Content="Push button to get random question" HorizontalAlignment="Left" Margin="5.41,48,0,0" VerticalAlignment="Top" Foreground="White" FontSize="26.667" Grid.Column="1"/>
+                    <Button x:Name="getQuestionButton" Focusable="false" Content="Get new question!" HorizontalAlignment="Left" Height="72" Margin="97.41,413,0,0" VerticalAlignment="Top" Width="239" IsCancel="True" Background="#FF009E61" Foreground="White" FontSize="25.333" Click="getQuestionButton_Click" Grid.Column="1"/>
+                    <Label x:Name="questionTextButton" Focusable="false" Content="Who win super bowl" HorizontalAlignment="Left" Height="69" Margin="5.41,150,0,0" VerticalAlignment="Top" Width="440" Grid.Column="1"/>
+                    <Button x:Name="firstAnswerButton" Focusable="false" Content="Who win super bowl" HorizontalAlignment="Left" Height="69" Margin="41,276,0,0" VerticalAlignment="Top" Width="123" BorderBrush="Black" BorderThickness="1" Background="#FFEDECF0" FontWeight="Bold" Grid.ColumnSpan="2"/>
+                    <Button x:Name="secondAnswerButton" Focusable="false" Content="Who win super bowl" HorizontalAlignment="Left" Height="69" Margin="83.41,276,0,0" VerticalAlignment="Top" Width="123" BorderBrush="Black" BorderThickness="1" Background="#FFEDECF0" FontWeight="Bold" Grid.Column="1"/>
+                    <Button x:Name="thirdAnswerButton" Focusable="false" Content="Who win super bowl" HorizontalAlignment="Left" Height="69" Margin="259.41,276,0,0" VerticalAlignment="Top" Width="123" BorderBrush="Black" BorderThickness="1" Background="#FFEDECF0" FontWeight="Bold" Grid.Column="1"/>
+                    <Button x:Name="fourthAnswerButton" Focusable="false" Content="Who win super bowl" HorizontalAlignment="Left" Height="69" Margin="428.41,276,0,0" VerticalAlignment="Top" Width="123" BorderBrush="Black" BorderThickness="1" Background="#FFEDECF0" FontWeight="Bold" Grid.Column="1"/>
+
+                </Grid>
+
+            </TabItem>
+            <TabItem x:Name="_2" Header="Insert question">
+                <Grid Height="495">
+                    <Rectangle Fill="#FF006F49" HorizontalAlignment="Left" Height="93" Margin="0,10,-8,0" Stroke="Black" VerticalAlignment="Top" Width="718"/>
+                    <Label x:Name="headerLabelInsert" Content="Fill boxes and button to send new question to repository" HorizontalAlignment="Left" Margin="21,52,0,0" VerticalAlignment="Top" Foreground="White" FontSize="26.667"/>
+                    <Button x:Name="putQuestionButton" Focusable="false" Content="Put new question!" HorizontalAlignment="Left" Height="72" Margin="230,413,0,0" VerticalAlignment="Top" Width="239" IsCancel="True" Foreground="White" FontSize="25.333" Click="putQuestionButton_Click" Background="#FF009E61" OpacityMask="#FF009E61"/>
+                    <TextBox x:Name="questionTextTextBox" TextWrapping="Wrap"  Text="Put here new text for question..." HorizontalAlignment="Left" Height="69" Margin="138,150,0,0" VerticalAlignment="Top" Width="440" LostFocus="questionTextTextBox_LostFocus" GotFocus="questionTextTextBox_GotFocus"/>
+                    <TextBox x:Name="firstAnswerTextBox" TextWrapping="Wrap" Text="Put here right answer..." HorizontalAlignment="Left" Height="69" Margin="41,276,0,0" VerticalAlignment="Top" Width="123" BorderBrush="#FF006F49" BorderThickness="1" Background="#FFEDECF0" FontWeight="Bold" ToolTip="Put right anwser" GotFocus="firstAnswerTextBox_GotFocus" LostFocus="firstAnswerTextBox_LostFocus"/>
+                    <TextBox x:Name="secondAnswerTextBox" TextWrapping="Wrap" Text="Put here wrong answer..." HorizontalAlignment="Left" Height="69" Margin="216,276,0,0" VerticalAlignment="Top" Width="123" BorderBrush="Red" BorderThickness="1" Background="#FFEDECF0" FontWeight="Bold" ToolTip="Put here wrong anwser" GotFocus="secondAnswerTextBox_GotFocus" LostFocus="secondAnswerTextBox_LostFocus"/>
+                    <TextBox x:Name="thirdAnswerTextBox" TextWrapping="Wrap" Text="Put here wrong answer..." HorizontalAlignment="Left" Height="69" Margin="392,276,0,0" VerticalAlignment="Top" Width="123" BorderBrush="Red" BorderThickness="1" Background="#FFEDECF0" FontWeight="Bold" ToolTip="Put here wrong anwser" GotFocus="thirdAnswerTextBox_GotFocus" LostFocus="thirdAnswerTextBox_LostFocus"/>
+                    <TextBox x:Name="fourthAnswerTextBox" TextWrapping="Wrap" Text="Put here wrong answer..." HorizontalAlignment="Left" Height="69" Margin="561,276,0,0" VerticalAlignment="Top" Width="123" BorderBrush="Red" BorderThickness="1" Background="#FFEDECF0" FontWeight="Bold" ToolTip="Put here wrong anwser" GotFocus="fourthAnswerTextBox_GotFocus" LostFocus="fourthAnswerTextBox_LostFocus"/>
+
+
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
     </Grid>
 </Window>
