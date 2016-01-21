@@ -1,11 +1,12 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using QuestionForYou.Data.Model;
+using QuestionForYou.UI.WPF.Contracts;
+
 
 namespace QuestionForYou.UI.WPF.Service
 {
-    internal interface IQuestionService
+    public interface IQuestionService
     {
         Task<Question> GetRandomQuestionAsync();
         Task<Question> GetQuestionAsync(int id);

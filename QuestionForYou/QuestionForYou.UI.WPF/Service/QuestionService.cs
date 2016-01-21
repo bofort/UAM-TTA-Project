@@ -5,7 +5,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using QuestionForYou.Data.Model;
+
+
+using QuestionForYou.UI.WPF.Contracts;
 
 namespace QuestionForYou.UI.WPF.Service
 {

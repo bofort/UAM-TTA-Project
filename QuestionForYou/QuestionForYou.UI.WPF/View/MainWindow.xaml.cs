@@ -14,9 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QuestionForYou.UI.WPF.ViewModels;
 
 
-namespace QuestionForYou.UI.WPF
+namespace QuestionForYou.UI.WPF.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,8 +27,8 @@ namespace QuestionForYou.UI.WPF
 
         //QuestionForYouContext db = new QuestionForYouContext("IntegrationTestsConnectionString");
 
-        private int rightAnswer = -1; // it keep the number of answer which is right in current question
-        public MainWindow()
+        //private int rightAnswer = -1; // it keep the number of answer which is right in current question
+        public MainWindow(IMainWindowViewModel viewModel)
         {
             InitializeComponent();
 
