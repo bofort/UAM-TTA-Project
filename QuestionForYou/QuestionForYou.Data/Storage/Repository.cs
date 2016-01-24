@@ -1,12 +1,9 @@
-﻿using System;
+﻿using QuestionForYou.Data.Model;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using QuestionForYou.Data.Model;
 
 namespace QuestionForYou.Data.Storage
 {
@@ -19,7 +16,7 @@ namespace QuestionForYou.Data.Storage
             _contextFactory = contextFactory;
         }
 
-        public T FindById(int id, params Expression<Func<T, object>>[] includes)
+        public T FindById(int? id, params Expression<Func<T, object>>[] includes)
         {
             List<string> includelist = GetIncludesList(includes);
 
@@ -44,7 +41,6 @@ namespace QuestionForYou.Data.Storage
                 includelist.ForEach(x => entity = entity.Include(x));
 
                 return entity.AsEnumerable().ToList();
-
             }
         }
 
@@ -86,7 +82,6 @@ namespace QuestionForYou.Data.Storage
                 includelist.Add(body.Member.Name);
             }
             return includelist;
-        } 
-
+        }
     }
 }

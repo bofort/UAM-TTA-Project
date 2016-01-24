@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Newtonsoft.Json;
 
 namespace QuestionForYou.API.Model
 {
     public class AnswerModel
     {
+        [JsonProperty(PropertyName = "id")]
         public int? Id { get; set; }
-        public int QuestionId { get; set; }        
-        public string Text { get; set; }
-        public bool IsCorrect { get; set; }
 
+        [JsonProperty(PropertyName = "questionId")]
+        public int QuestionId { get; set; }
+
+        [JsonProperty(PropertyName = "text")]
+        public string Text { get; set; }
+
+        [JsonProperty(PropertyName = "isCorrect")]
+        public bool IsCorrect { get; set; }
     }
 }

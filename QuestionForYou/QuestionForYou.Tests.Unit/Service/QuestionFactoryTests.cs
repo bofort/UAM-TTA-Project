@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FakeItEasy;
+﻿using FakeItEasy;
 using NUnit.Framework;
 using QuestionForYou.Data.Model;
 using QuestionForYou.Data.Service;
-using QuestionForYou.Data.Storage;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace QuestionForYou.Tests.Unit.Service
 {
     [TestFixture]
     public class QuestionFactoryTests
     {
-
         private QuestionFactory _sut;
 
         [SetUp]
@@ -55,7 +50,7 @@ namespace QuestionForYou.Tests.Unit.Service
 
             question = _sut.PrepareQuestionForUser(question);
 
-            Assert.That(question.Answers.Count,Is.EqualTo(4));
+            Assert.That(question.Answers.Count, Is.EqualTo(4));
         }
 
         [Test]
@@ -87,8 +82,7 @@ namespace QuestionForYou.Tests.Unit.Service
 
             List<Answer> correctAnswers = question.Answers.Where(x => x.IsCorrect).ToList();
 
-            Assert.That(correctAnswers.Count,Is.EqualTo(1));
+            Assert.That(correctAnswers.Count, Is.EqualTo(1));
         }
-
     }
 }

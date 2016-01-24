@@ -1,15 +1,18 @@
-﻿using System;
+﻿using QuestionForYou.Data.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QuestionForYou.Data.Model;
 
 namespace QuestionForYou.Data.Service
 {
     public interface ICategoryService
     {
         Category CreateCategory(Category category);
+
         List<Category> GetAll();
+
+        Category FindById(int id);
+
+        Category UpdateCategory(Category category);
+
+        void DeleteCategory(Category category);
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="Service\QuestionFactory.cs" />
     <Compile Include="Service\QuestionService.cs" />
     <Compile Include="Storage\IRepository.cs" />
+    <Compile Include="Storage\MigrationDB.cs" />
     <Compile Include="Storage\QuestionForYouContext.cs" />
     <Compile Include="Storage\Repository.cs" />
   </ItemGroup>

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using QuestionForYou.Data.Model;
 using System.Configuration;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QuestionForYou.Data.Model;
 
 namespace QuestionForYou.Data.Storage
 {
@@ -34,9 +29,7 @@ namespace QuestionForYou.Data.Storage
 
             modelBuilder.Entity<Question>()
                 .HasMany(b => b.Answers);
-
         }
-
 
         public DbSet<Question> Questions { get; set; }
 
@@ -45,7 +38,5 @@ namespace QuestionForYou.Data.Storage
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<User> Users { get; set; }
-
-
     }
 }

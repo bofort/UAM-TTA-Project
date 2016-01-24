@@ -1,11 +1,9 @@
-﻿using System;
+﻿using QuestionForYou.Data.Model;
+using QuestionForYou.Data.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using QuestionForYou.Data.Model;
-using QuestionForYou.Data.Storage;
 
 namespace QuestionForYou.Data.Service
 {
@@ -26,14 +24,36 @@ namespace QuestionForYou.Data.Service
             };
         }
 
+        public List<Question> GetAll()
+        {
+            return _questionRepository.GetAll(_expression.ToArray()).ToList();
+        }
+
+        public void DeleteQuestion(Question question)
+        {
+            _questionRepository.Remove(question);
+        }
+
+        public Question UpdateQuestion(Question question)
+        {
+            Question q = _questionRepository.Persist(question);
+            return _questionRepository.FindById(q.Id, _expression.ToArray());
+        }
+
         public Question CreateQuestion(Question question)
         {
-            return _questionRepository.Persist(question);
+            Question q = _questionRepository.Persist(question);
+            return _questionRepository.FindById(q.Id, _expression.ToArray());
         }
 
         public Question GetQuestionById(int id)
         {
-            return _questionRepository.FindById(id, _expression.ToArray());
+            Question q = _questionRepository.FindById(id, _expression.ToArray());
+            if (q != null)
+            {
+                return _questionRepository.FindById(q.Id, _expression.ToArray());
+            }
+            return null;
         }
 
         public List<Question> GetQuestionsForCategory(Category category)
@@ -51,6 +71,5 @@ namespace QuestionForYou.Data.Service
             }
             return null;
         }
-
     }
 }

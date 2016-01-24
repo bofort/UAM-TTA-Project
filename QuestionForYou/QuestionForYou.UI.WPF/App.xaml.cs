@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Autofac;
+using QuestionForYou.Data.Service;
+using QuestionForYou.UI.WPF.Controller;
+using QuestionForYou.UI.WPF.ViewModel;
 using System.Windows;
 
 namespace QuestionForYou.UI.WPF
@@ -13,5 +11,18 @@ namespace QuestionForYou.UI.WPF
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            var builder = new ContainerBuilder();
+            builder.RegisterType<MainWindowController>().As<IMainWindowController>();
+            builder.RegisterType<MainWindowViewModel>().As<IMainWindowViewModel>();
+            builder.RegisterType<QuestionService>().As<IQuestionService>();
+            builder.RegisterType<MainWindow>();
+            var container = builder.Build();
+            MainWindow window = container.Resolve<MainWindow>();
+            window.Show();
+        }
     }
 }

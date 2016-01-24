@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FakeItEasy;
+﻿using FakeItEasy;
 using NUnit.Framework;
 using QuestionForYou.Data.Model;
 using QuestionForYou.Data.Service;
@@ -14,7 +9,6 @@ namespace QuestionForYou.Tests.Unit.Service
     [TestFixture]
     public class CategoryServiceTests
     {
-
         private CategoryService _sut;
         private IRepository<Category> _repository;
 
@@ -33,7 +27,6 @@ namespace QuestionForYou.Tests.Unit.Service
             _sut.CreateCategory(category);
 
             A.CallTo(() => _repository.Persist(category)).MustHaveHappened();
-
         }
 
         [Test]
@@ -51,8 +44,7 @@ namespace QuestionForYou.Tests.Unit.Service
         {
             _sut.GetAll();
 
-            A.CallTo(()=>_repository.GetAll()).MustHaveHappened();
+            A.CallTo(() => _repository.GetAll()).MustHaveHappened();
         }
-
     }
 }

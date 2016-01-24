@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using QuestionForYou.Data.Model;
 using QuestionForYou.Data.Storage;
+using System;
+using System.Data.Entity;
+using System.Linq;
+using System.Transactions;
 
 namespace QuestionForYou.Tests.Integration.Storage
 {
     [TestFixture]
     public class RepositoryTests
     {
-
         private static Func<QuestionForYouContext> _dbContextFactory;
         private Repository<Question> _sut;
         private TransactionScope _scope;
@@ -39,6 +35,7 @@ namespace QuestionForYou.Tests.Integration.Storage
         {
             _scope.Dispose();
         }
+
         [Test]
         public void FindById_Should_Return_Null_When_Object_Og_Given_Id_Was_Not_Found()
         {
@@ -50,7 +47,7 @@ namespace QuestionForYou.Tests.Integration.Storage
         [Test]
         public void GetAll_Returns_All_Items()
         {
-            var model1 = new Question { Id = null, Text = "Who win super bowl", Category=new Category { Name = "Sport" } };
+            var model1 = new Question { Id = null, Text = "Who win super bowl", Category = new Category { Name = "Sport" } };
             var model2 = new Question { Id = null, Text = "Wich team w", Category = new Category { Name = "Sport" } };
 
             _sut.Persist(model1);
@@ -135,8 +132,5 @@ namespace QuestionForYou.Tests.Integration.Storage
             Assert.That(result2.Id, Is.Not.Null);
             Assert.That(result1.Id, Is.Not.EqualTo(result2.Id));
         }
-
-
-
     }
 }

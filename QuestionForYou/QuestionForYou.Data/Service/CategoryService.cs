@@ -1,10 +1,7 @@
-﻿using System;
+﻿using QuestionForYou.Data.Model;
+using QuestionForYou.Data.Storage;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QuestionForYou.Data.Model;
-using QuestionForYou.Data.Storage;
 
 namespace QuestionForYou.Data.Service
 {
@@ -26,5 +23,21 @@ namespace QuestionForYou.Data.Service
         {
             return _repository.GetAll().ToList();
         }
+
+        public Category FindById(int id)
+        {
+            return _repository.FindById(id);
+        }
+
+        public Category UpdateCategory(Category category)
+        {
+            return _repository.Persist(category);
+        }
+
+        public void DeleteCategory(Category category)
+        {
+            _repository.Remove(category);
+        }
+
     }
 }

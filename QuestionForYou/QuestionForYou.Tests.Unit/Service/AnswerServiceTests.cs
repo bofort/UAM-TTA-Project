@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FakeItEasy;
+﻿using FakeItEasy;
 using NUnit.Framework;
 using QuestionForYou.Data.Model;
 using QuestionForYou.Data.Service;
 using QuestionForYou.Data.Storage;
+using System.Collections.Generic;
 
 namespace QuestionForYou.Tests.Unit.Service
 {
     [TestFixture]
     public class AnswerServiceTests
     {
-
         private AnswerService _sut;
         private IRepository<Answer> _repository;
 
@@ -33,7 +28,6 @@ namespace QuestionForYou.Tests.Unit.Service
             _sut.CreateAnswer(answer);
 
             A.CallTo(() => _repository.Persist(answer)).MustHaveHappened();
-
         }
 
         [Test]
@@ -70,8 +64,7 @@ namespace QuestionForYou.Tests.Unit.Service
 
             List<Answer> answersList = _sut.GetAnswersForQuestion(12);
 
-            Assert.True(answersList.TrueForAll(x=>x.QuestionId == 12));
+            Assert.True(answersList.TrueForAll(x => x.QuestionId == 12));
         }
-
     }
 }

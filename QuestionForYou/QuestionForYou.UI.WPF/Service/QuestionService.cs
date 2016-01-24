@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using QuestionForYou.Data.Model;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace QuestionForYou.UI.WPF.Service
 {
     public class QuestionService : ServiceBase, IQuestionService
     {
-
         public async Task<Question> GetRandomQuestionAsync()
         {
             using (var client = CreateClient())
@@ -26,7 +21,7 @@ namespace QuestionForYou.UI.WPF.Service
         {
             using (var client = CreateClient())
             {
-                HttpResponseMessage response = await client.GetAsync("api/questions/"+id);
+                HttpResponseMessage response = await client.GetAsync("api/questions/" + id);
                 var question = await response.Content.ReadAsAsync<Question>();
                 return question;
             }
@@ -42,6 +37,5 @@ namespace QuestionForYou.UI.WPF.Service
                 return newQuestion;
             }
         }
-
     }
 }

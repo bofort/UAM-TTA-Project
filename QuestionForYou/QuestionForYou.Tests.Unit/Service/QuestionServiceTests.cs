@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using FakeItEasy;
+﻿using FakeItEasy;
 using NUnit.Framework;
 using QuestionForYou.Data.Model;
 using QuestionForYou.Data.Service;
 using QuestionForYou.Data.Storage;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace QuestionForYou.Tests.Unit.Service
 {
     [TestFixture]
     public partial class QuestionServiceTests
     {
-
         private QuestionService _sut;
         private IRepository<Question> _repository;
         private IQuestionFactory _questionFactory;
@@ -36,8 +32,7 @@ namespace QuestionForYou.Tests.Unit.Service
 
             _sut.CreateQuestion(question);
 
-            A.CallTo(()=>_repository.Persist(A<Question>._)).MustHaveHappened();
-
+            A.CallTo(() => _repository.Persist(A<Question>._)).MustHaveHappened();
         }
 
         [Test]
@@ -81,7 +76,7 @@ namespace QuestionForYou.Tests.Unit.Service
 
             List<Question> questionsCategory = questions.FindAll(q => q.Category == category);
 
-            Assert.That(questions.Count,Is.EqualTo(questionsCategory.Count));
+            Assert.That(questions.Count, Is.EqualTo(questionsCategory.Count));
         }
 
         [Ignore]
@@ -112,7 +107,7 @@ namespace QuestionForYou.Tests.Unit.Service
                     new Answer()
                 }
             };
-            nonEmptyQuestionsList.AddRange(new [] {q1,q2});
+            nonEmptyQuestionsList.AddRange(new[] { q1, q2 });
 
             A.CallTo(() => _repository.GetAll(A<Expression<Func<Question, object>>[]>._)).Returns(nonEmptyQuestionsList);
 
@@ -130,8 +125,7 @@ namespace QuestionForYou.Tests.Unit.Service
 
             var question = _sut.GetRandomQuestionForUser();
 
-            Assert.That(question,Is.EqualTo(null));
+            Assert.That(question, Is.EqualTo(null));
         }
-
     }
 }

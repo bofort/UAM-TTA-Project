@@ -1,15 +1,10 @@
-﻿using System;
+﻿using QuestionForYou.Data.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QuestionForYou.Data.Model;
 
 namespace QuestionForYou.Data.Service
 {
     public interface IQuestionService
     {
-
         Question CreateQuestion(Question question);
 
         Question GetQuestionById(int id);
@@ -18,5 +13,10 @@ namespace QuestionForYou.Data.Service
 
         Question GetRandomQuestionForUser();
 
+        List<Question> GetAll();
+
+        void DeleteQuestion(Question question);
+
+        Question UpdateQuestion(Question question);
     }
 }

@@ -1,21 +1,23 @@
-﻿using System.Reflection;
-using System.Web.Http;
+﻿using System.Linq;
+using System.Net.Http.Formatting;
 using Autofac;
-using Newtonsoft.Json.Serialization;
-using QuestionForYou.Data.Storage;
 using Autofac.Integration.WebApi;
+using Newtonsoft.Json.Serialization;
 using QuestionForYou.Data.Service;
+using QuestionForYou.Data.Storage;
+using System.Reflection;
+using System.Web.Http;
+using System.Web.Security;
 
 namespace QuestionForYou.API
 {
     public class WebApiConfig
     {
-
         public static void Register(HttpConfiguration config)
         {
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
-                new CamelCasePropertyNamesContractResolver();
-            config.Formatters.JsonFormatter.UseDataContractJsonSerializer = true;
+            //config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
+                //new CamelCasePropertyNamesContractResolver();
+            //config.Formatters.JsonFormatter.UseDataContractJsonSerializer = true;
 
             config.MapHttpAttributeRoutes();
 
@@ -27,6 +29,8 @@ namespace QuestionForYou.API
             var container = builder.Build();
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+
+
         }
 
         private static void ConfigureContainer(ContainerBuilder builder)
@@ -38,6 +42,5 @@ namespace QuestionForYou.API
             builder.RegisterType<AnswerService>().As<IAnswerService>();
             builder.RegisterType<CategoryService>().As<ICategoryService>();
         }
-
     }
 }

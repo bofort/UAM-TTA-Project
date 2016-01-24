@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using QuestionForYou.Data.Model;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace QuestionForYou.UI.WPF.Service
 {
     public class CategoryService : ServiceBase, ICategoryService
     {
-
         public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {
             using (var client = CreateClient())
@@ -33,6 +28,5 @@ namespace QuestionForYou.UI.WPF.Service
                 return categories;
             }
         }
-
     }
 }
