@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using QuestionForYou.API.Model;
 using QuestionForYou.Data.Model;
 using QuestionForYou.Data.Service;
@@ -19,10 +21,7 @@ namespace QuestionForYou.API.Controller
             _categoryService = categoryService;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+
         //[Route("api/questions")]
         //[HttpGet]
         //public QuestionModel GetRandomQuestion()
@@ -34,64 +33,107 @@ namespace QuestionForYou.API.Controller
 
 
         /// <summary>
-        /// Get all question
+        /// Get all questions
         /// </summary>
-        /// <returns></returns>
+        /// <remarks>Get existing questions</remarks>
+        /// <param name="count"></param>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal Server Error</response>
         [Authorize]
         [Route("api/questions")]
         [HttpGet]
-        public IHttpActionResult GetAll()
+        public List<QuestionModel> GetAll([FromUri]int count = -1)
         {
             var questions = _service.GetAll();
-            List<QuestionModel> questionModels = (from q in questions let a = q.Answers.Select(x => 
-                                                    new AnswerModel {Id = x.Id, Text = x.Text, IsCorrect = x.IsCorrect}).ToList()
-                                                  select new QuestionModel {Id = q.Id, Category = new CategoryModel { Id = q.Category.Id, Name = q.Category.Name }
-                                                  , Answers = a, Text = q.Text}).ToList();
-            return Ok(questionModels);
+            List<QuestionModel> questionModels = (from q in questions
+                                                  let a = q.Answers.Select(x =>
+                                                    new AnswerModel { Id = (int)x.Id, Text = x.Text, IsCorrect = x.IsCorrect }).ToList()
+                                                  select new QuestionModel
+                                                  {
+                                                      Id = (int)q.Id,
+                                                      Category = new CategoryModel { Id = (int)q.Category.Id, Name = q.Category.Name }
+                                                  ,
+                                                      Answers = a,
+                                                      Text = q.Text
+                                                  }).ToList();
+            if (count == -1)
+            {
+                return questionModels;
+            }
+            else
+            {
+                return questionModels.Take(count).ToList();
+            }
         }
 
         /// <summary>
         /// Add new question
         /// </summary>
         /// <param name="question"></param>
-        /// <returns></returns>
+        /// <returns>Created question</returns>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal Server Error</response>
         [Authorize]
         [Route("api/questions")]
         [HttpPost]
-        public IHttpActionResult AddNewQuestion([FromBody]QuestionModel question)
+        public QuestionModel AddNewQuestion([FromBody]QuestionModel question)
         {
-            List<Answer> asd = question.Answers.Select(x => new Answer {  Text = x.Text, IsCorrect = x.IsCorrect }).ToList();
-            var q = new Question
+            if (ModelState.IsValid)
             {
-                Category = new Category {Name = question.Category.Name},
-                Text = question.Text,
-                Answers = asd
-            };
-            q = _service.CreateQuestion(q);
-            List<AnswerModel> a = q.Answers.Select(x => new AnswerModel { Id = x.Id, Text = x.Text, IsCorrect = x.IsCorrect }).ToList();
-            return Ok(new QuestionModel { Id = q.Id, Category = new CategoryModel{Id = q.Category.Id,Name = q.Category.Name}, Answers = a, Text = q.Text });
+                if (question.Answers.Count == 0)
+                {
+                    throw new HttpResponseException(new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.BadRequest,
+                        Content = new StringContent("Model is not valid")
+                    });
+                }
+                var q = new Question
+                {
+                    Category = new Category { Name = question.Category.Name },
+                    Text = question.Text,
+                    Answers = question.Answers.Select(x => new Answer { Text = x.Text, IsCorrect = x.IsCorrect }).ToList()
+                };
+                q = _service.CreateQuestion(q);
+                List<AnswerModel> a = q.Answers.Select(x => new AnswerModel { Id = (int)x.Id, Text = x.Text, IsCorrect = x.IsCorrect }).ToList();
+                return new QuestionModel { Id = (int)q.Id, Category = new CategoryModel { Id = (int)q.Category.Id, Name = q.Category.Name }, Answers = a, Text = q.Text };
+            }
+            else
+            {
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.BadRequest,
+                    Content = new StringContent("Model is not valid")
+                });
+            }
         }
 
         /// <summary>
         /// Get one question
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <response code="400">Bad request</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="500">Internal Server Error</response>
         [Authorize]
         [Route("api/questions/{id}")]
         [HttpGet]
-        public IHttpActionResult GetQuestionById(int id)
+        public QuestionModel GetQuestionById(int id)
         {
             var q = _service.GetQuestionById(id);
             if (q != null)
             {
                 List<AnswerModel> a =
-                    q.Answers.Select(x => new AnswerModel {Id = x.Id, Text = x.Text, IsCorrect = x.IsCorrect}).ToList();
-                return Ok(new QuestionModel {Id = q.Id, Category = new CategoryModel { Id = q.Category.Id, Name = q.Category.Name }, Answers = a, Text = q.Text});
+                    q.Answers.Select(x => new AnswerModel { Id = (int)x.Id, Text = x.Text, IsCorrect = x.IsCorrect }).ToList();
+                return new QuestionModel { Id = (int)q.Id, Category = new CategoryModel { Id = (int)q.Category.Id, Name = q.Category.Name }, Answers = a, Text = q.Text };
             }
             else
             {
-                return NotFound();
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    Content = new StringContent("Question not found")
+                });
             }
         }
 
@@ -99,7 +141,10 @@ namespace QuestionForYou.API.Controller
         /// Delete question
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <response code="400">Bad request</response>
+        /// <response code="409">Conflict</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="500">Internal Server Error</response>
         [Authorize]
         [Route("api/questions/{id}")]
         [HttpDelete]
@@ -121,27 +166,46 @@ namespace QuestionForYou.API.Controller
         /// <summary>
         /// Update question
         /// </summary>
+        /// <returns>Updated category</returns>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="question"></param>
+        /// <response code="400">Bad request</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="500">Internal Server Error</response>
         [Authorize]
         [Route("api/questions/{id}")]
         [HttpPut]
-        public IHttpActionResult UpdateQuestion(int id,[FromBody]QuestionModel question)
+        public QuestionModel UpdateQuestion(int id, [FromBody]QuestionModel question)
         {
-            Question q = _service.GetQuestionById(id);
-            if (q != null)
+            if (ModelState.IsValid)
             {
-                List<Answer> answers =
-                    question.Answers.Select(an => new Answer {Id = an.Id, Text = an.Text, IsCorrect = an.IsCorrect})
-                        .ToList();
-                    q = _service.UpdateQuestion(new Question {Id = id,Category = new Category {  Name = q.Category.Name }, Text = question.Text,Answers = answers });
-                List<AnswerModel> a =
-                    q.Answers.Select(x => new AnswerModel { Id = x.Id, Text = x.Text, IsCorrect = x.IsCorrect }).ToList();
-                return Ok(new QuestionModel { Id = q.Id, Category = new CategoryModel { Id = q.Category.Id, Name = q.Category.Name }, Answers = a, Text = q.Text });
+                Question q = _service.GetQuestionById(id);
+                if (q != null)
+                {
+                    //List<Answer> answers =
+                    //    question.Answers.Select(an => new Answer { Id = an.Id, Text = an.Text, IsCorrect = an.IsCorrect })
+                    //        .ToList();
+                    q = _service.UpdateQuestion(new Question { Id = id, Text = question.Text });
+                    List<AnswerModel> a =
+                        q.Answers.Select(x => new AnswerModel { Id = (int)x.Id, Text = x.Text, IsCorrect = x.IsCorrect }).ToList();
+                    return new QuestionModel { Id = (int)q.Id, Category = new CategoryModel { Id = (int)q.Category.Id, Name = q.Category.Name }, Answers = a, Text = q.Text };
+                }
+                else
+                {
+                    throw new HttpResponseException(new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.NotFound,
+                        Content = new StringContent("Question not found")
+                    });
+                }
             }
             else
             {
-                return NotFound();
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.BadRequest,
+                    Content = new StringContent("Model is not valid")
+                });
             }
         }
 
@@ -149,20 +213,26 @@ namespace QuestionForYou.API.Controller
         /// Get category for question
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <response code="400">Bad request</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="500">Internal Server Error</response>
         [Authorize]
         [Route("api/questions/{id}/categories")]
         [HttpGet]
-        public IHttpActionResult GetQuestionCategory(int id)
+        public CategoryModel GetQuestionCategory(int id)
         {
             var q = _service.GetQuestionById(id);
             if (q != null)
             {
-                return Ok(new CategoryModel { Id = q.Category.Id, Name = q.Category.Name });
+                return new CategoryModel { Id = (int)q.Category.Id, Name = q.Category.Name };
             }
             else
             {
-                return NotFound();
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    Content = new StringContent("Question not found")
+                });
             }
         }
 

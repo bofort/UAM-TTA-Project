@@ -27,13 +27,12 @@ namespace QuestionForYou.API
 
                         c.CustomAsset("index.html", thisAssembly, "ReatApi.Assets.index.html");
 
-                        c.DisableValidator();
                     });
         }
 
         private static string GetXmlCommentsPath()
         {
-            return $@"{System.AppDomain.CurrentDomain.BaseDirectory}\QuestionForYou.xml";
+            return $@"{System.AppDomain.CurrentDomain.BaseDirectory}\Assets\QuestionForYou.xml";
         }
 
     }

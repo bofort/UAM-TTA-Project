@@ -1,8 +1,11 @@
-﻿using QuestionForYou.API.Model;
+﻿using System;
+using QuestionForYou.API.Model;
 using QuestionForYou.Data.Model;
 using QuestionForYou.Data.Service;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace QuestionForYou.API.Controller
@@ -26,58 +29,84 @@ namespace QuestionForYou.API.Controller
         /// <summary>
         /// Get all categories
         /// </summary>
-        /// <returns></returns>
+        /// <remarks>Get existing categories</remarks>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal Server Error</response>
         [Authorize]
         [Route("api/categories")]
         [HttpGet]
-        public IHttpActionResult GetAllCategory()
+        public List<CategoryModel> GetAllCategory()
         {
             var categoryList = _service.GetAll();
-            return Ok(categoryList.Select(c => new CategoryModel { Id = c.Id, Name = c.Name }).ToList());
+            return categoryList.Select(c => new CategoryModel { Id = (int)c.Id, Name = c.Name }).ToList();
         }
 
         /// <summary>
         /// Add new category
         /// </summary>
+        /// <returns>Created category</returns>
         /// <param name="category"></param>
-        /// <returns></returns>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal Server Error</response>
         [Authorize]
         [Route("api/categories")]
         [HttpPost]
-        public IHttpActionResult AddNewCategory(CategoryModel category)
+        public CategoryModel AddNewCategory(CategoryModel category)
         {
-            var c = new Category
+            if (ModelState.IsValid)
             {
-                Name = category.Name
-            };
-            c = _service.CreateCategory(c);
-            return Ok(new CategoryModel { Id = c.Id, Name = c.Name });
+                var c = new Category
+                {
+                    Name = category.Name
+                };
+                c = _service.CreateCategory(c);
+                return new CategoryModel { Id = (int)c.Id, Name = c.Name };
+            }
+            else
+            {
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.BadRequest,
+                    Content = new StringContent("Model is not valid")
+                });
+            }
         }
 
         /// <summary>
         /// Get category by id
         /// </summary>
-        /// <returns></returns>
+        /// <param name="id"></param>
+        /// <response code="400">Bad request</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="500">Internal Server Error</response>
         [Authorize]
         [Route("api/categories/{id}")]
         [HttpGet]
-        public IHttpActionResult GetCategory(int id)
+        public CategoryModel GetCategory(int id)
         {
             var c = _service.FindById(id);
             if (c != null)
             {
-                return Ok(new CategoryModel { Id = c.Id, Name = c.Name });
+                return new CategoryModel { Id = (int)c.Id, Name = c.Name };
             }
             else
             {
-                return NotFound();
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    Content = new StringContent("Categor not found")
+                });
             }
         }
 
         /// <summary>
         /// Delete category
         /// </summary>
-        /// <returns></returns>
+        /// <param name="id"></param>
+        /// <response code="400">Bad request</response>
+        /// <response code="409">Conflict</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="500">Internal Server Error</response>
         [Authorize]
         [Route("api/categories/{id}")]
         [HttpDelete]
@@ -98,23 +127,41 @@ namespace QuestionForYou.API.Controller
         /// <summary>
         /// Update category
         /// </summary>
+        /// <returns>Updated category</returns>
         /// <param name="id"></param>
         /// <param name="category"></param>
-        /// <returns></returns>
+        /// <response code="400">Bad request</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="500">Internal Server Error</response>
         [Authorize]
         [Route("api/categories/{id}")]
         [HttpPut]
-        public IHttpActionResult UpdateCategory(int id, [FromBody]CategoryModel category)
+        public CategoryModel UpdateCategory(int id, [FromBody]CategoryModel category)
         {
-            Category c = _service.FindById(id);
-            if (c != null)
+            if (ModelState.IsValid)
             {
-                c = _service.UpdateCategory(new Category { Id = id, Name = category.Name });
-                return Ok(new CategoryModel { Id = c.Id, Name = c.Name });
+                Category c = _service.FindById(id);
+                if (c != null)
+                {
+                    c = _service.UpdateCategory(new Category { Id = id, Name = category.Name });
+                    return new CategoryModel { Id = (int)c.Id, Name = c.Name };
+                }
+                else
+                {
+                    throw new HttpResponseException(new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.NotFound,
+                        Content = new StringContent("Categor not found")
+                    });
+                }
             }
             else
             {
-                return NotFound();
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.BadRequest,
+                    Content = new StringContent("Model is not valid")
+                });
             }
         }
 

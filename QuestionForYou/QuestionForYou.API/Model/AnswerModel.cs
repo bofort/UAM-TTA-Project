@@ -1,19 +1,23 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace QuestionForYou.API.Model
 {
     public class AnswerModel
     {
         [JsonProperty(PropertyName = "id")]
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty(PropertyName = "questionId")]
         public int QuestionId { get; set; }
 
-        [JsonProperty(PropertyName = "text")]
+        [MaxLength(100)]
+        [Required]
+        [JsonProperty(PropertyName = "text", Required = Required.Always)]
         public string Text { get; set; }
 
-        [JsonProperty(PropertyName = "isCorrect")]
+        [Required]
+        [JsonProperty(PropertyName = "isCorrect", Required = Required.Always)]
         public bool IsCorrect { get; set; }
     }
 }

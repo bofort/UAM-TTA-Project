@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>QuestionForYou.API</name>
+    </assembly>
+    <members>
+        <member name="M:QuestionForYou.API.Controller.AnswerController.#ctor(QuestionForYou.Data.Service.IAnswerService)">
+            <summary>
+            
+            </summary>
+            <param name="service"></param>
+        </member>
+        <member name="T:QuestionForYou.API.Controller.CategoryController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.CategoryController.#ctor(QuestionForYou.Data.Service.ICategoryService)">
+            <summary>
+            
+            </summary>
+            <param name="service"></param>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.CategoryController.GetAllCategory">
+            <summary>
+            Get all categories
+            </summary>
+            <remarks>Get existing categories</remarks>
+            <response code="400">Bad request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.CategoryController.AddNewCategory(QuestionForYou.API.Model.CategoryModel)">
+            <summary>
+            Add new category
+            </summary>
+            <returns>Created category</returns>
+            <param name="category"></param>
+            <response code="400">Bad request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.CategoryController.GetCategory(System.Int32)">
+            <summary>
+            Get category by id
+            </summary>
+            <param name="id"></param>
+            <response code="400">Bad request</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.CategoryController.DeleteCategory(System.Int32)">
+            <summary>
+            Delete category
+            </summary>
+            <param name="id"></param>
+            <response code="400">Bad request</response>
+            <response code="409">Conflict</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.CategoryController.UpdateCategory(System.Int32,QuestionForYou.API.Model.CategoryModel)">
+            <summary>
+            Update category
+            </summary>
+            <returns>Updated category</returns>
+            <param name="id"></param>
+            <param name="category"></param>
+            <response code="400">Bad request</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.QuestionController.GetAll(System.Int32)">
+            <summary>
+            Get all questions
+            </summary>
+            <remarks>Get existing questions</remarks>
+            <param name="count"></param>
+            <response code="400">Bad request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.QuestionController.AddNewQuestion(QuestionForYou.API.Model.QuestionModel)">
+            <summary>
+            Add new question
+            </summary>
+            <param name="question"></param>
+            <returns>Created question</returns>
+            <response code="400">Bad request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.QuestionController.GetQuestionById(System.Int32)">
+            <summary>
+            Get one question
+            </summary>
+            <param name="id"></param>
+            <response code="400">Bad request</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.QuestionController.DeleteQuestion(System.Int32)">
+            <summary>
+            Delete question
+            </summary>
+            <param name="id"></param>
+            <response code="400">Bad request</response>
+            <response code="409">Conflict</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.QuestionController.UpdateQuestion(System.Int32,QuestionForYou.API.Model.QuestionModel)">
+            <summary>
+            Update question
+            </summary>
+            <returns>Updated category</returns>
+            <param name="id"></param>
+            <param name="question"></param>
+            <response code="400">Bad request</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:QuestionForYou.API.Controller.QuestionController.GetQuestionCategory(System.Int32)">
+            <summary>
+            Get category for question
+            </summary>
+            <param name="id"></param>
+            <response code="400">Bad request</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+    </members>
+</doc>
